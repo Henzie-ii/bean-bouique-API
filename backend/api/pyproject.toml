@@ -1,0 +1,11 @@
+[project]
+name = "api"
+version = "0.1.0"
+description = "fastapi-gateway"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.140.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.13.4",
+]

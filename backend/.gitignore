@@ -1,0 +1,14 @@
+# Virtual Environments
+.venv/
+venv/
+
+# uv Cache directory
+.uv/
+
+# Python compiled files & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+#env files
+.env
