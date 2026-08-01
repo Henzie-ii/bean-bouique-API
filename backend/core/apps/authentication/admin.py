@@ -8,7 +8,6 @@ class CustomerUserAdmin(UserAdmin):
     model = User
 
     #table views in admin
-
     list_display = [
         "username",
         "email",

@@ -6,7 +6,7 @@ class User(AbstractUser):
         ADMIN = "ADMIN", "Administrator"
         ROASTER = "ROASTER", "Head Roaster"
         WAREHOUSE = "WAREHOUSE", "Warehouse Staff"
-        Customer = "Customer", "Customer"
+        Customer = "CUSTOMER", "Customer"
 
     #Role Based Access Control
     role = models.CharField(
