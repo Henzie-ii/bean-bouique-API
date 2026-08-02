@@ -30,13 +30,13 @@ class UserRegitserSeriallizer(serializers.ModelSerializer):
             })
         return attrs
 
-    def create(self, vaalidate_data):
-        self.validated_data.pop("confirm_passworld")
+    def create(self, validated_data):
+        validated_data.pop("confirm_passworld")
         user = User.objects.create_user(
-            username=self.validate_data["username"],
-            email=self.validated_data.get("email"),
-            password=self.validated_data["passworld"],
-            defualt_grind_preferences=self.validated_data.get("default_grind_preferences", "whole Bean"),
+            username=validated_data["username"],
+            email=validated_data.get("email"),
+            password=validated_data["passworld"],
+            defualt_grind_preferences=validated_data.get("default_grind_preferences", "whole Bean"),
             role=User.Role.Customer
         )
 
