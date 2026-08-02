@@ -17,11 +17,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class UserRegisterSeriallizer(serializers.ModelSerializer):
     passworld = serializers.CharField(write_only=True, min_length=8)
-    confirm_password = serializers.CharField(write_only=True)
+    confirm_passworld = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "passworld","confirm_password", "default_grind_preferences"]
+        fields = ["id", "username", "email", "passworld","confirm_password", "default_grind_preferences", "phone_number"]
 
     def validate(self, attrs):
         if attrs["passworld"] != attrs["confirm_passworld"]:
@@ -37,6 +37,7 @@ class UserRegisterSeriallizer(serializers.ModelSerializer):
             email=validated_data.get("email"),
             password=validated_data["passworld"],
             defualt_grind_preferences=validated_data.get("default_grind_preferences", "whole Bean"),
+            phone_number=validated_data("phone_number"),
             role=User.Role.Customer
         )
 
