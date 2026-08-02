@@ -16,7 +16,7 @@ class User(AbstractUser):
         help_text = "Designates operational access levels across systems" 
     )
 
-    default_grind_preferences = models.CharField(
+    default_grind_preference = models.CharField(
         max_length = 100,
         default = "Whole Bean",
         help_text = "Default grind selection used for automated subscription offers" 

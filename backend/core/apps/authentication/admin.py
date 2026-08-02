@@ -11,7 +11,7 @@ class CustomerUserAdmin(UserAdmin):
     list_display = [
         "username",
         "email",
-        "default_grind_preferences",
+        "default_grind_preference",
         "is_staff",
         "is_active"
     ]

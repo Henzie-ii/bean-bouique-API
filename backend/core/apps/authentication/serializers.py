@@ -21,7 +21,7 @@ class UserRegisterSeriallizer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "passworld","confirm_password", "default_grind_preferences", "phone_number"]
+        fields = ["id", "username", "email", "passworld","confirm_passworld", "default_grind_preference", "phone_number"]
 
     def validate(self, attrs):
         if attrs["passworld"] != attrs["confirm_passworld"]:
@@ -32,15 +32,18 @@ class UserRegisterSeriallizer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop("confirm_passworld")
+
         user = User.objects.create_user(
             username=validated_data["username"],
             email=validated_data.get("email"),
             password=validated_data["passworld"],
-            defualt_grind_preferences=validated_data.get("default_grind_preferences", "whole Bean"),
-            phone_number=validated_data("phone_number"),
-            role=User.Role.Customer
+            default_grind_preference=validated_data.get(
+                "default_grind_preference",
+                "whole Bean"
+            ),
+            phone_number=validated_data.get("phone_number", ""),
+            role=User.Role.Customer,
         )
-
         return user
 
 
@@ -52,7 +55,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "username",
             "email",
             "role",
-            "default_grind_preferences",
+            "default_grind_preference",
             "phone_number"
         ]
 
