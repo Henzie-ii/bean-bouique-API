@@ -16,7 +16,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 class UserRegitserSeriallizer(serializers.ModelSerializer):
-    passworld = serializers.CharField(write_only=True, min_lenght=8)
+    passworld = serializers.CharField(write_only=True, min_length=8)
     confirm_password = serializers.CharField(write_only=True)
 
     class Meta:

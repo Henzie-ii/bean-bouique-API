@@ -1,17 +1,25 @@
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+load_dotenv(BASE_DIR / ".env")
+
+print(BASE_DIR)
+print(os.getenv("SECRET_KEY"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'SECRET_KEY'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'FALSE') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+
+AUTH_USER_MODEL = "authentication.User"
 
 
 # Application definition
@@ -29,6 +37,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     #local apps
+    'apps.authentication',
     'apps.catalog',
     'apps.inventory',
     'apps.orders',
@@ -63,9 +72,9 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS":True,
     "BLACKLIST_AFTER_ROTATION":True,
     "ALGORITHM":"HS256",
-    "SIGNING_KEY":SECRET_KEY,
     "AUTH_HEADER_TYPES":("Bearer",),
 }
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -90,7 +99,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / os.getenv('DATABASE_NAME','db.sqlite3'),
     }
 }
 
