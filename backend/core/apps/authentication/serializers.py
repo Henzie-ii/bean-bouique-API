@@ -15,13 +15,13 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["username"] = user.username
         return token
 
-class UserRegitserSeriallizer(serializers.ModelSerializer):
+class UserRegisterSeriallizer(serializers.ModelSerializer):
     passworld = serializers.CharField(write_only=True, min_length=8)
     confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "passworld", "default_grind_preferences"]
+        fields = ["id", "username", "email", "passworld","confirm_password", "default_grind_preferences"]
 
     def validate(self, attrs):
         if attrs["passworld"] != attrs["confirm_passworld"]:

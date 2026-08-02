@@ -2,7 +2,7 @@ from rest_framework import permissions, generics
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
 
-from .serializers import UserRegitserSeriallizer, UserProfileSerializer, CustomTokenObtainPairSerializer
+from .serializers import UserRegisterSeriallizer, UserProfileSerializer, CustomTokenObtainPairSerializer
 
 User = get_user_model()
 
@@ -11,7 +11,7 @@ class RegisterView(generics.CreateAPIView):
     Public endpoint: allows new customers to register an account.
     """
     queryset = User.objects.all()
-    serializer_class = UserRegitserSeriallizer
+    serializer_class = UserRegisterSeriallizer
     permission_classes = [permissions.AllowAny]
 
 class CustomTokenObtainPairView(TokenObtainPairView):
