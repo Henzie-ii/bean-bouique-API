@@ -17,16 +17,42 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class UserRegitserSeriallizer(serializers.ModelSerializer):
     passworld = serializers.CharField(write_only=True, min_lenght=8)
+    confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "email", "username", "passworld", "default_grind_preferences"]
+        fields = ["id", "username", "email", "passworld", "default_grind_preferences"]
+
+    def validate(self, attrs):
+        if attrs["passworld"] != attrs["confirm_passworld"]:
+            raise serializers.ValidationError({
+                "passworld":"Passworld does not match."
+            })
+        return attrs
 
     def create(self, vaalidate_data):
-        return User.objects.create_user(
+        self.validated_data.pop("confirm_passworld")
+        user = User.objects.create_user(
             username=self.validate_data["username"],
             email=self.validated_data.get("email"),
             password=self.validated_data["passworld"],
             defualt_grind_preferences=self.validated_data.get("default_grind_preferences", "whole Bean"),
             role=User.Role.Customer
         )
+
+        return user
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "username",
+            "email",
+            "role",
+            "default_grind_preferences",
+            "phone_number"
+        ]
+
+        read_only_fields = ["id", "username", "role"]
