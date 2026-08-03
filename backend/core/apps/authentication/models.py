@@ -6,13 +6,13 @@ class User(AbstractUser):
         ADMIN = "ADMIN", "Administrator"
         ROASTER = "ROASTER", "Head Roaster"
         WAREHOUSE = "WAREHOUSE", "Warehouse Staff"
-        Customer = "CUSTOMER", "Customer"
+        CUSTOMER = "CUSTOMER", "Customer"
 
     #Role Based Access Control
     role = models.CharField(
         max_length = 20,
         choices = Role.choices,
-        default = Role.Customer,
+        default = Role.CUSTOMER,
         help_text = "Designates operational access levels across systems" 
     )
 

@@ -16,33 +16,33 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 class UserRegisterSeriallizer(serializers.ModelSerializer):
-    passworld = serializers.CharField(write_only=True, min_length=8)
-    confirm_passworld = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True, min_length=8)
+    confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "passworld","confirm_passworld", "default_grind_preference", "phone_number"]
+        fields = ["id", "username", "email", "password","confirm_password", "default_grind_preference", "phone_number"]
 
     def validate(self, attrs):
-        if attrs["passworld"] != attrs["confirm_passworld"]:
+        if attrs["password"] != attrs["confirm_password"]:
             raise serializers.ValidationError({
-                "passworld":"Passworld does not match."
+                "password":"Password does not match."
             })
         return attrs
 
     def create(self, validated_data):
-        validated_data.pop("confirm_passworld")
+        validated_data.pop("confirm_password")
 
         user = User.objects.create_user(
             username=validated_data["username"],
             email=validated_data.get("email"),
-            password=validated_data["passworld"],
+            password=validated_data["password"],
             default_grind_preference=validated_data.get(
                 "default_grind_preference",
                 "whole Bean"
             ),
             phone_number=validated_data.get("phone_number", ""),
-            role=User.Role.Customer,
+            role=User.Role.CUSTOMER,
         )
         return user
 
