@@ -9,7 +9,7 @@ class RoastBatch(models.Model):
         READY = "READY", "Ready"
         DEPLETED = "DEPLETED", "Depleted"
 
-    batch_number = models.CharField(max_length=120, unique=True, help_text="e.g BATCH-2026-0816")
+    batch_number = models.CharField(max_length=120, unique=True, help_text="e.g(BATCH-YYYY-MMDD) BATCH-2026-0816")
     coffee = models.ForeignKey(Coffee, on_delete=models.PROTECT, related_name="roast_batches")
     roast_date = models.DateField()
 
