@@ -48,7 +48,7 @@ class ProductVariant(models.Model):
     is_available = models.BooleanField(default=True)
 
     class Meta:
-        unique_together = ("coffee", "weight_grams", "grind_options")
+        unique_together = ("coffee", "weight_grams", "grind_option")
 
     def __str__(self):
         return f"{self.coffee.name} - {self.weight_grams}g [{self.grind_option}] - ${self.price_cents / 100:.2f}"

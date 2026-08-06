@@ -27,7 +27,7 @@ class CoffeeAdmin(admin.ModelAdmin):
         "tasting_notes"
     ]
 
-    prepopulated_fields = { "slug": ("name,")}
+    prepopulated_fields = { "slug": ["name"]}
 
     inlines = [ProductVariantInline]
 
@@ -36,7 +36,7 @@ class ProductVariantAdmin(admin.ModelAdmin):
     list_display = [
         "stock_keeping_unit",
         "weight_grams",
-        "grind_options",
+        "grind_option",
         "price_cents"
     ]
 
